@@ -31,5 +31,5 @@ int main()
 
     cout << a << " mod " << b << " = " << result << endl;
     system("pause");
-    return 0;
+    return 1;
 }
