@@ -12,7 +12,7 @@
 #include <iostream>
 using namespace std;
 #define MAX_NUMBERS 100
-#define DEBUG
+// #define DEBUG
 
 int main() {
     #ifndef DEBUG
@@ -29,7 +29,7 @@ int main() {
 
         int s[MAX_NUMBERS];
     #else
-        int a[] = {5, 12, 67, 45, 87, 678, 3};
+        int a[] = {5, 12, 67, 99, 111, 22, 45, 87, 678, 22, 36666};
         int n = sizeof(a) / sizeof(*a);
         int s[sizeof(a) / sizeof(*a)];
     #endif
@@ -38,25 +38,27 @@ int main() {
     int 
         i = 0,
         j = 0;
-
-    int trace[MAX_NUMBERS];
     
-    trace[0] = -1;
-    while(i < n) {        
-        while(j < n) {
-            j++;
-            if(a[j] >= a[j - 1]) {
-                s[j] = s[j - 1] + 1;
-                trace[j] = trace[j - 1];
-            }
-            else {
-                s[j] = 1;
-                i = j;
-                trace[i] = -1;
-                break;
-            }
+    int 
+        max = 0,
+        previous;
+    
+    while(j < n || i < n) {
+        previous = j;
+        j++;
+        if(a[j] >= a[previous])
+            s[j] = s[previous] + 1;
+        else {
+            if(max < s[previous]) max = previous;
+            s[j] = 1;
+            i = j;
         }
     }
+    
+    for(int i = max - s[max] + 1; i <= max; i++) {
+        cout << a[i] << " ";
+    }
+    cout << endl;
     system("pause");
     return 0;
 }
